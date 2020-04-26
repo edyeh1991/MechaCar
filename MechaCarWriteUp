@@ -1,0 +1,147 @@
+MPG Regression Results:
+-----------------------------------------------------------------------------------------
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -1.040e+02  1.585e+01  -6.559 5.08e-08 ***
+vehicle.length    6.267e+00  6.553e-01   9.563 2.60e-12 ***
+vehicle.weight    1.245e-03  6.890e-04   1.807   0.0776 .  
+spoiler.angle     6.877e-02  6.653e-02   1.034   0.3069    
+ground.clearance  3.546e+00  5.412e-01   6.551 5.21e-08 ***
+AWD
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.774 on 44 degrees of freedom
+Multiple R-squared:  0.7149,	Adjusted R-squared:  0.6825 
+F-statistic: 22.07 on 5 and 44 DF,  p-value: 5.35e-11
+-----------------------------------------------------------------------------------------
+
+Which variables/coefficients provided a non-random amount of variance to the mpg values in the dataset?
+  The vehicle length and ground clearance variables provide a non-random amount of variance with p-values being    far below our assumed significance level of 0.05.
+
+Is the slope of the linear model considered to be zero? Why or why not?
+  The p-value of our linear regression analysis is 5.35e-11 which is much smaller than our assumed significance    level of 0.05, therefore the slope of our linear model in not zero and there is a relationship between vehicle length and ground clearance that affects the fuel efficiency.
+
+Does this linear model predict mpg of MechaCar prototypes effectively? Why or why not?
+  With the R-squared value being 0.71, about 71% of all mpg predictions will be correct using this linear model.
+  Given the intercept of the model has a p-value much smaller than our assumed significance level of 0.5, some     other variables not included in the model contribute to the variation in mpg.
+-----------------------------------------------------------------------------------------
+
+MPG Regression Results:
+-----------------------------------------------------------------------------------------
+Manufacturing_Lot Mean_PSI Median_PSI Variance_PSI Standard_Deviation_PSI
+  <chr>                <dbl>      <dbl>        <dbl>                  <dbl>
+1 Lot1                 1500       1500         0.980                  0.990
+2 Lot2                 1500.      1500         7.47                   2.73 
+3 Lot3                 1496.      1498.      170.                    13.0  
+-----------------------------------------------------------------------------------------
+
+The design specifications for the MechaCar suspension coils dictate that the variance of the suspension coils must not exceed 100 pounds per inch. Does the current manufacturing data meet this design specification? Why or why not?
+  THe current manufacturing data does not meet the design specification as the variance in lot3 is 170 PSI, way above the 100 limit.
+  
+Suspension Coil T-Test Results:
+-----------------------------------------------------------------------------------------
+One Sample t-test
+
+data:  sample_sus$PSI
+t = -1.795, df = 49, p-value = 0.07882
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1495.634 1500.246
+sample estimates:
+mean of x 
+  1497.94 
+-----------------------------------------------------------------------------------------  
+Paired t-test
+
+data:  Lot1$PSI and Lot2$PSI
+t = -0.52031, df = 49, p-value = 0.6052
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.9724591  0.5724591
+sample estimates:
+mean of the differences 
+                   -0.2 
+-----------------------------------------------------------------------------------------
+Paired t-test
+
+data:  Lot1$PSI and Lot3$PSI
+t = 2.0728, df = 49, p-value = 0.04347
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.1177828 7.6022172
+sample estimates:
+mean of the differences 
+                   3.86
+-----------------------------------------------------------------------------------------
+Paired t-test
+
+data:  Lot2$PSI and Lot3$PSI
+t = 2.0883, df = 49, p-value = 0.04199
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.1529772 7.9670228
+sample estimates:
+mean of the differences 
+                   4.06 
+-----------------------------------------------------------------------------------------
+Determine if the suspension coil's pound-per-inch results are statistically different from the mean population results of 1,500 pounds per inch.
+  Given a random sample of 50 accross all 3 lots, there is no statistical difference between the means of the PSI   results and the hypothesized PSI results of 1,500 pounds per inch. With the given dataset, we are 95% confident   the true mean lies between 1495.634 and 1500.246
+  Looking at each lot individually, there is no statistical difference between the means of the PSI results and    the hypothesized PSI results of 1,500 pounds per inch between lot 1 and lot 2, but there is a statistical        differences between the means of PSI results comparing lots 1 and 3 and lots 2 and 3 that is approximately 4     PSI.
+-----------------------------------------------------------------------------------------
+
+Design Your Own Study Results:
+-----------------------------------------------------------------------------------------
+Call:
+lm(formula = mpg ~ hp + wt, data = mtcars_filt)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-3.941 -1.600 -0.182  1.050  5.854 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 37.22727    1.59879  23.285  < 2e-16 ***
+hp          -0.03177    0.00903  -3.519  0.00145 ** 
+wt          -3.87783    0.63273  -6.129 1.12e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.593 on 29 degrees of freedom
+Multiple R-squared:  0.8268,	Adjusted R-squared:  0.8148 
+F-statistic: 69.21 on 2 and 29 DF,  p-value: 9.109e-12
+-----------------------------------------------------------------------------------------
+> summary(aov(mpg ~ cyl,data=mtcars_filt))
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+cyl          2  824.8   412.4    39.7 4.98e-09 ***
+Residuals   29  301.3    10.4                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+-----------------------------------------------------------------------------------------
+> summary(aov(mpg ~ gear,data=mtcars_filt))
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+gear         2  483.2  241.62    10.9 0.000295 ***
+Residuals   29  642.8   22.17                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+-----------------------------------------------------------------------------------------
+> summary(aov(mpg ~ carb,data=mtcars_filt))
+            Df Sum Sq Mean Sq F value  Pr(>F)   
+carb         5  500.6  100.11   4.161 0.00655 **
+Residuals   26  625.5   24.06                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+-----------------------------------------------------------------------------------------
+
+Using the dataset from 'mtcars', we used the Multiple Linear Regression model to determine if there was a relationship between the gross horsepower and the weight of the car in tons that effect a car's fuel efficiency in mpg. We choose to look at a cars hp and weight for the data type required to perform a Linear Regression are numerical and in this case continuous.
+Our null hypothesis would be that there is no significant linear relationship between each variable and the fuel efficiency. The relationship that we see is by random chance.
+Our alternative hypothesis would be that the slope of the linear model would be non-zero meaing there is a linear relationship between a variable and the fuel efficiency not determined to random chance.
+From our intial analysis, we see that both variables can account for 83% of predictions made on the dataset  with the vehicle weight and hp of the car having a significant impact to the fuel efficiency.
+
+Taking a look at the vehicles number of forward gears, number of carburetors, and number of cylinders as categorical data types we can performing an ANOVA test to deterine if there is any statistical difference in the fuel efficiency of a vehicle based on the number of forward gears, number of carburetors, and number of cylinders the vehicle has.
+Our null hypothesis would be that the mean mpg of all groups are equal, whereas the alternative would be that at least one of the means is different fromt all other groups.
+The ANOVA test shows that there is a significant difference in fuel efficienty between vehicles with a certain number of forward gears, number of carburetors, and number of cylinders.
+
+
+
+
